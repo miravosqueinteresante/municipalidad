@@ -1,0 +1,10 @@
+- title: Inicio
+  url: /
+- title: Dashboard
+  url: /dashboard/
+- title: Informe
+  url: /informe/
+- title: Datos
+  url: https://datospublicos.muchotexto.net/
+- title: Acerca de
+  url: /acerca/

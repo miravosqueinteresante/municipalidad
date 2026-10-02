@@ -1,0 +1,60 @@
+name: Build and deploy Jekyll to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+  schedule:
+    - cron: "17 13 * * 1"  # lun 13:17 UTC: refresco semanal de datos
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+      - name: Setup Python (sync datos)
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Sync datos (MuchoTexto Data)
+        run: python scripts/sync_datos.py
+        env:
+          JEKYLL_ENV: production
+      - name: Build with Jekyll
+        run: |
+          echo "url: https://municipalidad.muchotexto.net" > _config_pages.yml
+          bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}" --config _config.yml,_config_pages.yml
+        env:
+          JEKYLL_ENV: production
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

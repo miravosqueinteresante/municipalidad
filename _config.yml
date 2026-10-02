@@ -1,0 +1,67 @@
+title: municipalidad.muchotexto.net
+description: "Reclamos ciudadanos de la Municipalidad de Asunción (2023–2026): análisis, dashboard interactivo e informes públicos a partir de datos anonimizados obtenidos vía pedido de acceso a la información pública (Ley 5282/2014)."
+baseurl: ""
+url: "https://municipalidad.muchotexto.net"
+twitter_username: cesanz
+github_username: miravosqueinteresante
+logo: /assets/images/og-image.png
+twitter:
+  username: cesanz
+  card: summary_large_image
+
+# Build settings
+future: true
+permalink: pretty
+sass:
+  style: compressed
+plugins:
+  - jekyll-feed
+  - jekyll-paginate-v2
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      image: /assets/images/og-image.png
+
+include:
+  - CNAME
+  - llms.txt
+
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - AGENTS.md
+  - README.md
+
+# Monophase theme settings
+tagline: "Reclamos ciudadanos de Asunción"
+lang: es
+author:
+  name: César Sánchez
+  twitter: cesanz
+  url: https://muchotexto.net
+tags_path: /tags/
+categories_path: /categories/
+google_analytics: ""
+pagination:
+  enabled: false
+  per_page: 5
+  permalink: "/page/:num/"
+  sort_field: "date"
+  sort_reverse: true
+
+social:
+  name: MuchoTexto
+  links:
+    - "https://x.com/cesanz"
+    - "https://www.linkedin.com/in/cesar-sanchez-melgarejo/"
