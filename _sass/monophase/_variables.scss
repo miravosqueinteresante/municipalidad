@@ -4,32 +4,53 @@ $lg-screen: 64rem;
 $xl-screen: 80rem;
 
 :root {
+  /* Spacing */
   --spacer: 1rem;
   --spacer-2: calc(var(--spacer) * 2);
   --spacer-3: calc(var(--spacer) * 3);
 
-  // https://github.com/necolas/normalize.css/issues/665
-  --body-font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-  --body-font-size: 16px;
-  --body-line-height: 1.5;
+  /* Typography — system stack (CSP forbids external fonts) */
+  --body-font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --body-font-size: 17px;
+  --body-line-height: 1.6;
+  --code-font-family: ui-monospace, "SF Mono", "Cascadia Mono", "Segoe UI Mono", "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", Menlo, Monaco, Consolas, "Courier New", monospace;
 
-  --border-radius: .5em;
+  /* Radius */
+  --border-radius-sm: 4px;
+  --border-radius: 8px;
+  --border-radius-lg: 12px;
 
-  // https://qwtel.com/posts/software/the-monospaced-system-ui-css-font-stack/
-  --code-font-family: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro", "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
+  /* Surface — warm graphite with a faint green cast */
+  --body-bg-color: #131614;
+  --surface-color: #1a1e1c;
+  --surface-raised: #232825;
+  --code-bg-color: #1a1e1c;
+  --border-color: #2b322e;
+  --border-color-strong: #3c453f;
 
-  /**
-   * Color — Dark mode by default
-   */
-  --body-bg-color: var(--oc-gray-9);
-  --body-color: var(--oc-gray-4);
-  --code-bg-color: var(--oc-gray-7);
-  --heading-color: var(--oc-white);
-  --border-color: var(--oc-gray-7);
-  --link-color: var(--oc-cyan-4);
-  --link-color-rgb: var(--oc-cyan-4-rgb);
-  --link-hover-color: var(--oc-cyan-6);
-  --info-color: var(--oc-green-1);
-  --warning-color: var(--oc-yellow-1);
-  --danger-color: var(--oc-red-1);
+  /* Text */
+  --heading-color: #f2f5f3;
+  --body-color: #c7cdc9;
+  --text-color: #c7cdc9;
+  --text-color-light: #98a39c;
+
+  /* Accent — verde institucional (ecos del arbolado urbano) */
+  --link-color: #5cc98a;
+  --link-color-rgb: 92, 201, 138;
+  --link-hover-color: #7fd9a3;
+
+  /* Semantic */
+  --info-color: #b9f2cd;
+  --warning-color: #f2cc6e;
+  --danger-color: #f08f78;
+
+  /* Note surfaces */
+  --note-bg: rgba(92, 201, 138, 0.09);
+  --note-border: rgba(92, 201, 138, 0.32);
+  --warn-bg: rgba(242, 204, 110, 0.09);
+  --warn-border: rgba(242, 204, 110, 0.34);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.35);
 }
