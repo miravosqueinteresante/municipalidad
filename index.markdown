@@ -59,7 +59,7 @@ description: "Análisis y datos públicos de los reclamos y denuncias que recibe
   <h2 class="section-title">De dónde salen estos datos</h2>
   <div class="source-note">
     <p>
-      Los registros provienen del <strong>Departamento de Atención al Ciudadano</strong> de la Municipalidad de Asunción, entregados como respuesta a un pedido de acceso a la información pública (<strong>ID 106387</strong>, Ley 5282/2014). Son datos <strong>anonimizados</strong>: sin nombres, cédulas, teléfonos ni domicilios de los reclamantes. Cubren el período {{ m.periodo }} y suman {{ m.registros }} registros agregados.
+      Los registros provienen del <strong>Departamento de Atención al Ciudadano</strong> de la Municipalidad de Asunción, entregados como respuesta a un pedido de acceso a la información pública (<strong>ID 106387</strong>, Ley 5282/2014, <strong>Memo D.A.C. N.º 34/2026</strong>). Son datos <strong>anonimizados</strong>: sin nombres, cédulas, teléfonos ni domicilios de los reclamantes. Cubren el período {{ m.periodo }} (fecha de corte {{ m.fecha_corte }}) y suman {{ m.registros }} registros agregados.
     </p>
     <p>
       Este proyecto es parte del ecosistema <a href="https://muchotexto.net/" target="_blank" rel="noopener noreferrer">muchotexto.net</a> y de <a href="https://datospublicos.muchotexto.net/" target="_blank" rel="noopener noreferrer">MuchoTexto Data</a>, la infraestructura de datos verificables sobre Paraguay.

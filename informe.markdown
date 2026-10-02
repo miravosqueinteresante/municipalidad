@@ -55,5 +55,5 @@ Estos registros tienen límites importantes que conviene nombrar:
 Aun con esas limitaciones, el conjunto permite responder preguntas que antes no se podían responder en público: **qué le preocupa a la ciudad, qué área tiene más demanda y en qué barrios**. Es la base para pedir cuentas con datos, no con percepciones. Y es reproducible: el dataset está publicado y su método está documentado.
 
 <div class="note" style="margin-top:2rem;">
-  <strong>Fuente:</strong> Departamento de Atención al Ciudadano, Municipalidad de Asunción, vía pedido de acceso a la información pública ID 106387 (Ley 5282/2014). Datos anonimizados y agregados. <a href="https://datospublicos.muchotexto.net/datos/reclamos.json" target="_blank" rel="noopener noreferrer">Dataset en datos abiertos</a>.
+  <strong>Fuente:</strong> Departamento de Atención al Ciudadano, Municipalidad de Asunción, vía pedido de acceso a la información pública ID 106387 (Ley 5282/2014), respondido mediante Memo D.A.C. N.º 34/2026. Datos anonimizados y agregados. Proyecto independiente, no oficial. <a href="https://datospublicos.muchotexto.net/datos/reclamos.json" target="_blank" rel="noopener noreferrer">Dataset en datos abiertos</a>.
 </div>

@@ -11,7 +11,7 @@ last_modified_at: 2026-10-02
 
 <p class="dash-eyebrow"><span class="dash-dot"></span>Datos verificados · {{ site.data.reclamos._meta.periodo }}</p>
 
-<p class="dash-intro">Todos los reclamos registrados por el Departamento de Atención al Ciudadano de la Municipalidad de Asunción entre 2023 y 2026. Cifras agregadas y anonimizadas, sin registros individuales. Fuente: <a href="https://datospublicos.muchotexto.net/datos/reclamos.json" rel="noopener noreferrer" target="_blank">datos abiertos</a> (pedido ID 106387, Ley 5282/2014).</p>
+<p class="dash-intro">Todos los reclamos registrados por el Departamento de Atención al Ciudadano de la Municipalidad de Asunción entre 2023 y 2026. Cifras agregadas y anonimizadas, sin registros individuales. Fuente: <a href="https://datospublicos.muchotexto.net/datos/reclamos.json" rel="noopener noreferrer" target="_blank">datos abiertos</a> (pedido ID 106387, Ley 5282/2014 · Memo D.A.C. N.º 34/2026). Proyecto independiente, no oficial.</p>
 
 {% assign k = site.data.reclamos.kpis %}
 <div class="dash-kpis">
