@@ -266,29 +266,21 @@
 
 .dash-bar {
   display: grid;
-  grid-template-columns: 190px 1fr 72px;
+  grid-template-columns: minmax(200px, 38%) minmax(0, 1fr) max-content;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 8px;
-}
-
-@media (max-width: 40rem) {
-  .dash-bar {
-    grid-template-columns: 118px 1fr 56px;
-    gap: 10px;
-  }
+  gap: 14px;
+  margin-bottom: 12px;
 }
 
 .dash-bar-label {
-  font-size: 0.82rem;
+  font-size: 0.84rem;
+  line-height: 1.35;
   color: var(--heading-color);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  overflow-wrap: anywhere;
 }
 
 .dash-bar-track {
-  height: 14px;
+  height: 18px;
   background: var(--surface-raised);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius-sm);
@@ -307,6 +299,21 @@
   font-size: 0.8rem;
   color: var(--text-color-light);
   text-align: right;
+  white-space: nowrap;
+}
+
+@media (max-width: 40rem) {
+  .dash-bar {
+    grid-template-columns: 1fr max-content;
+    grid-template-areas:
+      "label value"
+      "track track";
+    gap: 6px 14px;
+    margin-bottom: 16px;
+  }
+  .dash-bar-label { grid-area: label; }
+  .dash-bar-track { grid-area: track; }
+  .dash-bar-value { grid-area: value; }
 }
 
 .table-wrap {
