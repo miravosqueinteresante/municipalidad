@@ -6,12 +6,11 @@ description: "Reclamos de la Municipalidad de Asunción 2023–2026: volumen, es
 last_modified_at: 2026-10-02
 ---
 
-<div class="dash-page">
 <div class="dash">
 
 <p class="dash-eyebrow"><span class="dash-dot"></span>Datos verificados · {{ site.data.reclamos._meta.periodo }}</p>
 
-<p class="dash-intro">Todos los reclamos registrados por el Departamento de Atención al Ciudadano de la Municipalidad de Asunción entre 2023 y 2026. Cifras agregadas y anonimizadas, sin registros individuales. Fuente: <a href="https://datospublicos.muchotexto.net/datos/reclamos.json" rel="noopener noreferrer" target="_blank">datos abiertos</a> (pedido ID 106387, Ley 5282/2014 · Memo D.A.C. N.º 34/2026). Proyecto independiente, no oficial.</p>
+<p class="dash-intro">Todos los reclamos registrados por el Departamento de Atención al Ciudadano de la Municipalidad de Asunción entre 2023 y 2026. Cifras agregadas y anonimizadas, sin registros individuales. Usá los controles de cada gráfico para <strong>filtrar, ordenar y buscar</strong>. Fuente: <a href="https://datospublicos.muchotexto.net/datos/reclamos.json" rel="noopener noreferrer" target="_blank">datos abiertos</a> (pedido ID 106387, Ley 5282/2014 · Memo D.A.C. N.º 34/2026). Proyecto independiente, no oficial.</p>
 
 {% assign k = site.data.reclamos.kpis %}
 <div class="dash-kpis">
@@ -23,52 +22,24 @@ last_modified_at: 2026-10-02
 
 <section class="dash-section">
   <h2 class="dash-section-title">Reclamos por año</h2>
-  {% assign max_anio = site.data.reclamos.por_anio.first.total %}
-  {% for a in site.data.reclamos.por_anio %}
-  <div class="dash-bar">
-    <span class="dash-bar-label">{{ a.anio }}</span>
-    <div class="dash-bar-track"><div class="dash-bar-fill" style="width: {{ a.total | times: 100.0 | divided_by: max_anio | round: 0 }}%"></div></div>
-    <span class="dash-bar-value">{{ a.total }}</span>
-  </div>
-  {% endfor %}
+  <div id="bars-anio"></div>
   <p class="dash-disclaimer">Pendientes + finalizados por año de registro. 2026 incluye hasta septiembre (fecha de la respuesta al pedido).</p>
 </section>
 
 <section class="dash-section">
-  <h2 class="dash-section-title">Top 12 — tipos de reclamo</h2>
-  {% assign max_cat = site.data.reclamos.por_categoria.first.total %}
-  {% for c in site.data.reclamos.por_categoria limit: 12 %}
-  <div class="dash-bar">
-    <span class="dash-bar-label" title="{{ c.nombre }}">{{ c.nombre }}</span>
-    <div class="dash-bar-track"><div class="dash-bar-fill" style="width: {{ c.total | times: 100.0 | divided_by: max_cat | round: 0 }}%"></div></div>
-    <span class="dash-bar-value">{{ c.total }}</span>
-  </div>
-  {% endfor %}
+  <h2 class="dash-section-title">Tipos de reclamo</h2>
+  <div id="bars-categoria"></div>
 </section>
 
 <section class="dash-section">
-  <h2 class="dash-section-title">Top 12 — dependencia responsable</h2>
-  {% assign max_dep = site.data.reclamos.por_dependencia.first.total %}
-  {% for d in site.data.reclamos.por_dependencia limit: 12 %}
-  <div class="dash-bar">
-    <span class="dash-bar-label" title="{{ d.nombre }}">{{ d.nombre }}</span>
-    <div class="dash-bar-track"><div class="dash-bar-fill" style="width: {{ d.total | times: 100.0 | divided_by: max_dep | round: 0 }}%"></div></div>
-    <span class="dash-bar-value">{{ d.total }}</span>
-  </div>
-  {% endfor %}
+  <h2 class="dash-section-title">Dependencia responsable</h2>
+  <div id="bars-dependencia"></div>
 </section>
 
 <section class="dash-section">
-  <h2 class="dash-section-title">Top 12 — barrios</h2>
-  {% assign max_bar = site.data.reclamos.por_barrio.first.total %}
-  {% for b in site.data.reclamos.por_barrio limit: 12 %}
-  <div class="dash-bar">
-    <span class="dash-bar-label" title="{{ b.nombre }}">{{ b.nombre }}</span>
-    <div class="dash-bar-track"><div class="dash-bar-fill" style="width: {{ b.total | times: 100.0 | divided_by: max_bar | round: 0 }}%"></div></div>
-    <span class="dash-bar-value">{{ b.total }}</span>
-  </div>
-  {% endfor %}
-  <p class="dash-disclaimer">Cobertura parcial: 2023 no registra barrio; 2024 mezcla barrio con dirección. El ranking se apoya sobre todo en 2025–2026.</p>
+  <h2 class="dash-section-title">Barrios</h2>
+  <p class="dash-disclaimer">Cobertura parcial: 2023 no registra barrio; 2024 mezcla barrio con dirección. Conteos menores a 5 se omiten.</p>
+  <div id="bars-barrio"></div>
 </section>
 
 <section class="dash-section">
@@ -92,4 +63,111 @@ last_modified_at: 2026-10-02
 <p class="dash-disclaimer">Datos agregados a {{ site.data.reclamos._meta.sincronizado }}. Sin datos personales. Descargá el dataset en <a href="https://datospublicos.muchotexto.net/datos/reclamos.json" rel="noopener noreferrer" target="_blank">datospublicos.muchotexto.net/datos/reclamos.json</a>.</p>
 
 </div>
-</div>
+
+<script>
+(function () {
+  var DATA = {{ site.data.reclamos | jsonify }};
+  var fmt = new Intl.NumberFormat('es-PY');
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  function renderBars(list, opts) {
+    var host = document.getElementById(opts.id);
+    var state = { top: 10, sort: 'desc', q: '' };
+    var total = list.reduce(function (s, i) { return s + i.total; }, 0);
+
+    var controlsEl = document.createElement('div');
+    controlsEl.className = 'dash-controls';
+    var countEl = document.createElement('div');
+    countEl.className = 'dash-count';
+    var barsEl = document.createElement('div');
+    barsEl.className = 'dash-bars';
+
+    function option(sel, val, text) {
+      var o = document.createElement('option');
+      o.value = val; o.textContent = text;
+      sel.appendChild(o);
+    }
+
+    if (!opts.noControls) {
+      var topSel = document.createElement('select');
+      option(topSel, '5', 'Top 5');
+      option(topSel, '10', 'Top 10');
+      option(topSel, '25', 'Top 25');
+      option(topSel, 'all', 'Todos');
+      topSel.value = '10';
+      topSel.addEventListener('change', function () { state.top = topSel.value; draw(); });
+      var topLabel = document.createElement('label');
+      topLabel.appendChild(document.createTextNode('Mostrar'));
+      topLabel.appendChild(topSel);
+
+      var sortSel = document.createElement('select');
+      option(sortSel, 'desc', 'Mayor a menor');
+      option(sortSel, 'asc', 'Menor a mayor');
+      option(sortSel, 'name', 'A → Z');
+      sortSel.addEventListener('change', function () { state.sort = sortSel.value; draw(); });
+      var sortLabel = document.createElement('label');
+      sortLabel.appendChild(document.createTextNode('Orden'));
+      sortLabel.appendChild(sortSel);
+
+      controlsEl.appendChild(topLabel);
+      controlsEl.appendChild(sortLabel);
+
+      if (opts.searchable) {
+        var q = document.createElement('input');
+        q.type = 'search';
+        q.placeholder = 'Filtrar por nombre…';
+        q.setAttribute('aria-label', 'Filtrar por nombre');
+        q.addEventListener('input', function () { state.q = q.value; draw(); });
+        controlsEl.appendChild(q);
+      }
+    }
+
+    host.innerHTML = '';
+    host.appendChild(controlsEl);
+    host.appendChild(countEl);
+    host.appendChild(barsEl);
+
+    function draw() {
+      var items = list.slice();
+      if (opts.searchable && state.q) {
+        var needle = state.q.toLowerCase();
+        items = items.filter(function (i) { return i.nombre.toLowerCase().indexOf(needle) !== -1; });
+      }
+      if (state.sort === 'asc') items.sort(function (a, b) { return a.total - b.total; });
+      else if (state.sort === 'name') items.sort(function (a, b) { return a.nombre.localeCompare(b.nombre, 'es'); });
+      else items.sort(function (a, b) { return b.total - a.total; });
+
+      var shown = items;
+      if (state.top !== 'all') shown = items.slice(0, parseInt(state.top, 10));
+      var max = Math.max.apply(null, shown.map(function (i) { return i.total; }).concat([1]));
+
+      countEl.textContent = shown.length + ' de ' + list.length + (opts.searchable && state.q ? ' (filtrado)' : '');
+
+      if (!shown.length) {
+        barsEl.innerHTML = '<p class="dash-empty">Sin resultados para el filtro.</p>';
+        return;
+      }
+      barsEl.innerHTML = shown.map(function (i) {
+        var pct = (i.total / total * 100).toFixed(1);
+        var w = (i.total / max * 100).toFixed(1);
+        return '<div class="dash-bar" data-tip="' + esc(fmt.format(i.total) + ' reclamos · ' + pct + '% del total') + '">' +
+          '<span class="dash-bar-label">' + esc(i.nombre) + '</span>' +
+          '<div class="dash-bar-track"><div class="dash-bar-fill" style="width:' + w + '%"></div></div>' +
+          '<span class="dash-bar-value">' + fmt.format(i.total) + '</span>' +
+          '</div>';
+      }).join('');
+    }
+
+    draw();
+  }
+
+  renderBars(DATA.por_categoria, { id: 'bars-categoria', searchable: true });
+  renderBars(DATA.por_dependencia, { id: 'bars-dependencia', searchable: true });
+  renderBars(DATA.por_barrio, { id: 'bars-barrio', searchable: true });
+  renderBars(DATA.por_anio.map(function (a) { return { nombre: String(a.anio), total: a.total }; }), { id: 'bars-anio', noControls: true });
+})();
+</script>
