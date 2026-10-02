@@ -404,6 +404,62 @@
   font-style: italic;
 }
 
+/* ── Heatmap mensual ──────────────────────────────────────────────── */
+
+.mes-grid {
+  display: grid;
+  grid-template-columns: 44px repeat(12, minmax(0, 1fr));
+  gap: 3px;
+  align-items: center;
+  padding: 0.25rem;
+}
+
+.mes-year {
+  font-family: var(--code-font-family);
+  font-size: 0.72rem;
+  color: var(--text-color-light);
+  white-space: nowrap;
+}
+
+.mes-head {
+  text-align: center;
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-color-light);
+  padding-bottom: 0.25rem;
+}
+
+.mes-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 24px;
+  padding: 2px 0;
+  border-radius: 3px;
+  font-family: var(--code-font-family);
+  font-size: 0.68rem;
+  color: var(--heading-color);
+  font-variant-numeric: tabular-nums;
+}
+
+.mes-cell.mes-empty {
+  background: transparent;
+  color: transparent;
+}
+
+@media (max-width: 40rem) {
+  .mes-grid {
+    grid-template-columns: 34px repeat(12, minmax(0, 1fr));
+    gap: 2px;
+  }
+  .mes-cell {
+    font-size: 0.6rem;
+    min-height: 20px;
+  }
+}
+
 .table-wrap {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;

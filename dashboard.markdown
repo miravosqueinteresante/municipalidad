@@ -43,17 +43,18 @@ last_modified_at: 2026-10-02
 </section>
 
 <section class="dash-section">
-  <h2 class="dash-section-title">Evolución mensual</h2>
-  <div class="table-wrap">
-    <table class="dash-table">
-      <thead><tr><th>Mes</th><th>Pendientes</th><th>Finalizados</th><th>Total</th></tr></thead>
-      <tbody>
-      {% for m in site.data.reclamos.por_mes %}
-        <tr><td>{{ m.mes }}</td><td>{{ m.pendientes }}</td><td>{{ m.finalizados }}</td><td>{{ m.total }}</td></tr>
-      {% endfor %}
-      </tbody>
-    </table>
+  <h2 class="dash-section-title">Qué se reclama en cada barrio</h2>
+  <p class="dash-disclaimer">Seleccioná un barrio para ver sus tipos de reclamo más frecuentes.</p>
+  <div class="dash-controls">
+    <label>Barrio <select id="barrio-select"></select></label>
   </div>
+  <div id="bars-barrio-cat"></div>
+</section>
+
+<section class="dash-section">
+  <h2 class="dash-section-title">Evolución mensual</h2>
+  <p class="dash-disclaimer">Total de reclamos por mes. Pasá el mouse sobre una celda para ver el detalle.</p>
+  <div class="table-wrap"><div id="meses-heatmap"></div></div>
 </section>
 
 <div class="dash-note">
@@ -169,5 +170,69 @@ last_modified_at: 2026-10-02
   renderBars(DATA.por_dependencia, { id: 'bars-dependencia', searchable: true });
   renderBars(DATA.por_barrio, { id: 'bars-barrio', searchable: true });
   renderBars(DATA.por_anio.map(function (a) { return { nombre: String(a.anio), total: a.total }; }), { id: 'bars-anio', noControls: true });
+  renderBarrioCategoria();
+  renderHeatmap();
+
+  function renderBarrioCategoria() {
+    var sel = document.getElementById('barrio-select');
+    var out = document.getElementById('bars-barrio-cat');
+    var data = DATA.por_barrio_categoria || [];
+    if (!data.length) { out.innerHTML = '<p class="dash-empty">Sin datos por barrio.</p>'; return; }
+
+    data.forEach(function (b) {
+      var o = document.createElement('option');
+      o.value = b.barrio;
+      o.textContent = b.barrio + ' (' + fmt.format(b.total) + ')';
+      sel.appendChild(o);
+    });
+
+    function drawBarrio() {
+      var b = null;
+      for (var i = 0; i < data.length; i++) { if (data[i].barrio === sel.value) { b = data[i]; break; } }
+      if (!b) { out.innerHTML = ''; return; }
+      var max = Math.max.apply(null, b.top.map(function (t) { return t.total; }).concat([1]));
+      out.innerHTML = b.top.map(function (t) {
+        var w = (t.total / max * 100).toFixed(1);
+        var pct = (t.total / b.total * 100).toFixed(1);
+        return '<div class="dash-bar" data-tip="' + esc(fmt.format(t.total) + ' reclamos · ' + pct + '% del barrio') + '">' +
+          '<span class="dash-bar-label">' + esc(t.nombre) + '</span>' +
+          '<div class="dash-bar-track"><div class="dash-bar-fill" style="width:' + w + '%"></div></div>' +
+          '<span class="dash-bar-value">' + fmt.format(t.total) + '</span>' +
+          '</div>';
+      }).join('');
+    }
+
+    sel.addEventListener('change', drawBarrio);
+    drawBarrio();
+  }
+
+  function renderHeatmap() {
+    var el = document.getElementById('meses-heatmap');
+    if (!el) return;
+    var byMonth = {};
+    DATA.por_mes.forEach(function (m) { byMonth[m.mes] = m.total; });
+    var years = [2023, 2024, 2025, 2026];
+    var months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+    var max = Math.max.apply(null, DATA.por_mes.map(function (m) { return m.total; }).concat([1]));
+
+    var html = '<div class="mes-grid">';
+    html += '<div class="mes-year"></div>';
+    months.forEach(function (mm) { html += '<div class="mes-head">' + mm + '</div>'; });
+    years.forEach(function (y) {
+      html += '<div class="mes-year">' + y + '</div>';
+      for (var mi = 1; mi <= 12; mi++) {
+        var key = y + '-' + (mi < 10 ? '0' + mi : mi);
+        var v = byMonth[key];
+        if (v == null) {
+          html += '<div class="mes-cell mes-empty" aria-hidden="true"></div>';
+        } else {
+          var a = (0.15 + 0.85 * (v / max)).toFixed(2);
+          html += '<div class="mes-cell" style="background:rgba(92,201,138,' + a + ')" title="' + key + ': ' + fmt.format(v) + ' reclamos">' + fmt.format(v) + '</div>';
+        }
+      }
+    });
+    html += '</div>';
+    el.innerHTML = html;
+  }
 })();
 </script>
