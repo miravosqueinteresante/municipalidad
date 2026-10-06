@@ -11,7 +11,7 @@ last_modified_at: 2026-10-02
 
 ## En una frase
 
-La ciudad reclama, sobre todo, **por sus árboles**. La poda de árboles en la vía pública es el pedido más repetido de Asunción ({{ cat1.total }} reclamos entre 2023 y 2026), muy por encima de cualquier otra categoría. Le siguen las casas abandonadas, la limpieza de baldíos, el retiro de chatarra y el destronque.
+La ciudad reclama, sobre todo, **por sus árboles**. La poda de árboles en la vía pública es el pedido más repetido de Asunción ({{ cat1.total }} reclamos entre 2023 y 2026), seguido de cerca por las casas abandonadas ({{ site.data.reclamos.por_categoria[1].total }}). Completan el top: limpieza de baldíos, retiro de chatarra y destronque.
 
 ## El arbolado urbano como demanda dominante
 
@@ -39,7 +39,7 @@ Globalmente, {{ k.tasa_resolucion }}% de los reclamos figura como **finalizado**
 1. **El año en curso distorsiona.** 2026 está incompleto (los datos llegan hasta septiembre), con apenas 275 finalizados sobre 2.937 registros: los reclamos más recientes todavía no tuvieron tiempo de cerrarse.
 2. **"Finalizado" no siempre es "resuelto a favor".** En los campos de texto libre se documentan finalizaciones como "no se constató lo denunciado", es decir, el cierre puede significar una verificación que descartó el problema, no una reparación.
 
-Dicho esto, mirando años completos (2023–2024), la proporción de finalizados se mantiene en torno al 40–45%, lo que da una idea más realista del ritmo de cierre que la cifra global.
+Dicho esto, mirando los años ya cerrados, la proporción de finalizados fue **42,9% en 2023 y 37,9% en 2024** (y 29,8% en 2025), lo que da una idea más realista del ritmo de cierre que la cifra global.
 
 ## Lo que los datos no dicen
 
