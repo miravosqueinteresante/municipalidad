@@ -27,4 +27,4 @@ Si considerás que algún dato es incorrecto, o detectás un dato personal publi
 
 - **Email**: [cesar.sanchez.melgarejo@gmail.com](mailto:cesar.sanchez.melgarejo@gmail.com)
 - **X (Twitter)**: [@cesanz](https://x.com/cesanz)
-- **LinkedIn**: [César Sánchez](https://www.linkedin.com/in/cesar-sanchez-melgarejo/)
+- **LinkedIn**: [César Sánchez en LinkedIn](https://www.linkedin.com/in/cesar-sanchez-melgarejo/)

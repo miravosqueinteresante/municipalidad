@@ -1,0 +1,28 @@
+---
+layout: null
+sitemap: false
+---
+# municipalidad.muchotexto.net — Reclamos ciudadanos de Asunción
+
+> Datos agregados y anonimizados de los reclamos y denuncias ciudadanas de la Municipalidad de Asunción ({{ site.data.reclamos._meta.periodo }}). Proyecto independiente, no oficial, de [César Sánchez](https://muchotexto.net/).
+sameAs: [@cesanz](https://x.com/cesanz), [LinkedIn](https://www.linkedin.com/in/cesar-sanchez-melgarejo/)
+
+## Secciones
+
+- [Inicio](https://municipalidad.muchotexto.net/): resumen del proyecto y KPIs clave ({{ site.data.reclamos.kpis.total }} reclamos registrados)
+- [Dashboard](https://municipalidad.muchotexto.net/dashboard/): gráficos interactivos con filtros, búsqueda y orden por categoría, dependencia y barrio
+- [Informe](https://municipalidad.muchotexto.net/informe/): lectura narrativa de los datos — qué reclama la ciudad y qué limitaciones tienen
+- [Acerca de](https://municipalidad.muchotexto.net/acerca/): origen, método, licencia (CC BY 4.0) y límites de los datos
+- [Privacidad](https://municipalidad.muchotexto.net/privacidad/): política de privacidad
+- [Contacto](https://municipalidad.muchotexto.net/contacto/): reportar errores o pedir correcciones
+
+## Datos abiertos
+
+- [Dataset agregado (JSON)](https://datospublicos.muchotexto.net/datos/reclamos.json): conteos por año, mes, estado, categoría, dependencia y barrio, con cruce barrio × categoría
+- [Página de datos](https://datospublicos.muchotexto.net/reclamos.html): visualización navegable del dataset con metodología y diccionario de datos
+
+## Información técnica
+
+- Fuente: Departamento de Atención al Ciudadano, Municipalidad de Asunción — pedido de acceso a la información pública ID 106387 (Ley 5282/2014), Memo D.A.C. N.º 34/2026
+- Sitemap: https://municipalidad.muchotexto.net/sitemap.xml
+- Motor: Jekyll 4.4.1 alojado en GitHub Pages

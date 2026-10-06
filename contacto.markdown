@@ -11,7 +11,7 @@ Si encontraste un dato incorrecto, una fuente rota o algo que no cierra, avisano
 
 - **Email**: [cesar.sanchez.melgarejo@gmail.com](mailto:cesar.sanchez.melgarejo@gmail.com)
 - **X (Twitter)**: [@cesanz](https://x.com/cesanz)
-- **LinkedIn**: [César Sánchez](https://www.linkedin.com/in/cesar-sanchez-melgarejo/)
+- **LinkedIn**: [César Sánchez en LinkedIn](https://www.linkedin.com/in/cesar-sanchez-melgarejo/)
 
 ## Sobre este proyecto
 
